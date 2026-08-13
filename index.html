@@ -5,193 +5,38 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Script Hub</title>
   <style>
-    :root {
-      --bg: #0f111a;
-      --card: #1a1d2e;
-      --accent: #ff4757;
-      --text: #fff;
-      --muted: #a0a5c1;
-      --success: #2ed573;
-      --warning: #ffa502;
-      --info: #1e90ff;
-      --border: #2a2f4c;
-      --input: #0f111a;
-    }
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-    body {
-      background: var(--bg);
-      color: var(--text);
-      padding: 16px;
-      font-family: sans-serif;
-    }
-    .container {
-      max-width: 500px;
-      margin: 0 auto;
-    }
-    header {
-      text-align: center;
-      margin-bottom: 16px;
-    }
-    .logo-box {
-      display: inline-flex;
-      align-items: center;
-      gap: 12px;
-      cursor: pointer;
-    }
-    .logo-icon {
-      font-size: 1.8rem;
-      font-weight: bold;
-      color: var(--accent);
-    }
-    .logo-text {
-      font-size: 1.6rem;
-      font-weight: 800;
-    }
-    .main-tabs {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 10px;
-      margin-bottom: 20px;
-    }
-    .tab-btn {
-      background: var(--card);
-      border: 1px solid var(--border);
-      color: var(--muted);
-      padding: 12px;
-      border-radius: 8px;
-      font-weight: bold;
-      cursor: pointer;
-    }
-    .tab-btn.active {
-      background: var(--accent);
-      color: #fff;
-    }
-    .view-section {
-      display: none;
-    }
-    .view-section.active {
-      display: block;
-    }
-    .script-form {
-      display: none;
-      background: var(--card);
-      padding: 20px;
-      border-radius: 12px;
-      margin-bottom: 24px;
-      border: 2px dashed var(--accent);
-    }
-    .script-form.active {
-      display: block;
-    }
-    .form-toggle-buttons {
-      display: flex;
-      gap: 8px;
-      margin-bottom: 16px;
-    }
-    .form-toggle-btn {
-      flex: 1;
-      padding: 8px;
-      cursor: pointer;
-    }
-    .form-group {
-      margin-bottom: 14px;
-    }
-    .form-group label {
-      display: block;
-      margin-bottom: 6px;
-      color: var(--muted);
-    }
-    .form-group input,
-    .form-group select,
-    .form-group textarea {
-      width: 100%;
-      padding: 12px;
-      background: var(--input);
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      color: #fff;
-    }
-    .btn-submit {
-      background: var(--success);
-      color: #fff;
-      border: none;
-      padding: 14px;
-      border-radius: 8px;
-      cursor: pointer;
-      width: 100%;
-      font-weight: bold;
-    }
-    .controls {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 12px;
-      margin-bottom: 24px;
-    }
-    .search-bar,
-    .filter-select {
-      width: 100%;
-      padding: 12px;
-      background: var(--card);
-      border: 1px solid var(--border);
-      color: #fff;
-      border-radius: 8px;
-    }
-    .script-card {
-      background: var(--card);
-      border-radius: 12px;
-      padding: 18px;
-      margin-bottom: 16px;
-      border: 1px solid var(--border);
-    }
-    .script-title {
-      font-size: 1.2rem;
-      font-weight: bold;
-      margin-bottom: 10px;
-    }
-    .badge-container {
-      display: flex;
-      gap: 6px;
-      flex-wrap: wrap;
-      margin-bottom: 12px;
-    }
-    .badge {
-      background: var(--border);
-      color: var(--accent);
-      padding: 4px 10px;
-      border-radius: 6px;
-      font-size: .75rem;
-    }
-    .code-textarea {
-      width: 100%;
-      background: var(--input);
-      border: 1px solid var(--border);
-      color: #57f287;
-      padding: 12px;
-      border-radius: 6px;
-      margin-bottom: 12px;
-      height: 100px;
-    }
-    .card-buttons {
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-    }
-    .btn-copy, .btn-link {
-      padding: 12px;
-      border-radius: 8px;
-      font-weight: bold;
-      cursor: pointer;
-      text-align: center;
-      text-decoration: none;
-      display: block;
-    }
+    :root { --bg: #0f111a; --card: #1a1d2e; --accent: #ff4757; --text: #fff; --muted: #a0a5c1; --success: #2ed573; --warning: #ffa502; --info: #1e90ff; --border: #2a2f4c; --input: #0f111a; }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { background: var(--bg); color: var(--text); padding: 16px; font-family: sans-serif; }
+    .container { max-width: 500px; margin: 0 auto; }
+    header { text-align: center; margin-bottom: 16px; }
+    .logo-box { display: inline-flex; align-items: center; gap: 12px; cursor: pointer; }
+    .logo-text { font-size: 1.6rem; font-weight: 800; }
+    .main-tabs { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 20px; }
+    .tab-btn { background: var(--card); border: 1px solid var(--border); color: var(--muted); padding: 12px; border-radius: 8px; font-weight: bold; cursor: pointer; }
+    .tab-btn.active { background: var(--accent); color: #fff; }
+    .view-section { display: none; }
+    .view-section.active { display: block; }
+    .script-form { display: none; background: var(--card); padding: 20px; border-radius: 12px; margin-bottom: 24px; border: 2px dashed var(--accent); }
+    .script-form.active { display: block; }
+    .form-toggle-buttons { display: flex; gap: 8px; margin-bottom: 16px; }
+    .form-toggle-btn { flex: 1; padding: 8px; cursor: pointer; background: var(--border); color: #fff; border: none; border-radius: 4px; }
+    .form-group { margin-bottom: 14px; }
+    .form-group label { display: block; margin-bottom: 6px; color: var(--muted); }
+    .form-group input, .form-group select, .form-group textarea { width: 100%; padding: 12px; background: var(--input); border: 1px solid var(--border); border-radius: 8px; color: #fff; }
+    .btn-submit { background: var(--success); color: #fff; border: none; padding: 14px; border-radius: 8px; cursor: pointer; width: 100%; font-weight: bold; }
+    .controls { display: grid; grid-template-columns: 1fr; gap: 12px; margin-bottom: 24px; }
+    .search-bar, .filter-select { width: 100%; padding: 12px; background: var(--card); border: 1px solid var(--border); color: #fff; border-radius: 8px; }
+    .script-card { background: var(--card); border-radius: 12px; padding: 18px; margin-bottom: 16px; border: 1px solid var(--border); }
+    .script-title { font-size: 1.2rem; font-weight: bold; margin-bottom: 10px; }
+    .badge-container { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 12px; }
+    .badge { background: var(--border); color: var(--accent); padding: 4px 10px; border-radius: 6px; font-size: .75rem; }
+    .code-textarea { width: 100%; background: var(--input); border: 1px solid var(--border); color: #57f287; padding: 12px; border-radius: 6px; margin-bottom: 12px; height: 100px; }
+    .card-buttons { display: flex; flex-direction: column; gap: 8px; }
+    .btn-copy, .btn-link { padding: 12px; border-radius: 8px; font-weight: bold; cursor: pointer; text-align: center; text-decoration: none; display: block; }
     .btn-copy { background: var(--border); color: #fff; border: none; }
     .btn-link { background: #1e272e; color: #fff; }
-    .btn-delete { display: none; background: #3d1e22; color: #ff4757; padding: 10px; border-radius: 8px; width: 100%; margin-top: 5px; }
+    .btn-delete { display: none; background: #3d1e22; color: #ff4757; padding: 10px; border-radius: 8px; width: 100%; margin-top: 5px; border: none; cursor: pointer; }
     .btn-delete.admin-mode { display: block; }
   </style>
 </head>
@@ -241,64 +86,113 @@
     </section>
   </div>
   <script>
-    const PASS="h55032629@gmai.com";let isAdmin=false,currentAdminFormType="script";
-    const defaultScripts=[{id:1,game:"Blox Fruits",name:"W-Azure Hub",type:"Auto Farm",keyType:"Không Key",keyLink:"",note:"Mượt",code:"loadstring()()"}];
-    const defaultExecutors=[{id:101,name:"Delta",platform:"Android",priceType:"Free",link:"https://...",note:"Tốt"}];
-    let scripts=JSON.parse(localStorage.getItem("dbScripts"))||defaultScripts;
-    let executors=JSON.parse(localStorage.getItem("dbExecutors"))||defaultExecutors;
+    const PASS = "h55032629@gmai.com";
+    let isAdmin = false, currentAdminFormType = "script";
+    
+    let scripts = JSON.parse(localStorage.getItem("dbScripts")) || [{id:1,game:"Blox Fruits",name:"W-Azure Hub",type:"Auto Farm",keyType:"Không Key",keyLink:"",note:"Mượt",code:"loadstring()()"}];
+    let executors = JSON.parse(localStorage.getItem("dbExecutors")) || [{id:101,name:"Delta",platform:"Android",priceType:"Free",link:"https://...",note:"Tốt"}];
+
     function switchMainTab(t){
       document.getElementById("tabScript").classList.toggle("active",t==='script');
       document.getElementById("tabExecutor").classList.toggle("active",t==='executor');
       document.getElementById("sectionScript").classList.toggle("active",t==='script');
       document.getElementById("sectionExecutor").classList.toggle("active",t==='executor');
-      if(t==='script')renderScripts();else renderExecutors();
     }
-    function setAdminFormType(t){
-      currentAdminFormType=t;
-      document.getElementById("formScriptFields").style.display=t==='script'?'block':'none';
-      document.getElementById("formExecutorFields").style.display=t==='executor'?'block':'none';
+
+    function checkAdmin() {
+      if(prompt("Nhập mật khẩu Admin:") === PASS) {
+        isAdmin = true;
+        document.getElementById("adminForm").classList.add("active");
+        alert("Đăng nhập Admin thành công!"); renderScripts(); renderExecutors();
+      } else { alert("Sai mật khẩu!"); }
     }
-    function checkAdmin(){
-      const t=prompt("Nhập mật khẩu Admin:");
-      if(t===PASS){isAdmin=true;document.getElementById("adminForm").classList.add("active");renderScripts();renderExecutors();alert("Đăng nhập Admin!")}
+
+    function setAdminFormType(t) {
+      currentAdminFormType = t;
+      document.getElementById("formScriptFields").style.display = t === 'script' ? 'block' : 'none';
+      document.getElementById("formExecutorFields").style.display = t === 'executor' ? 'block' : 'none';
     }
-    function updateGameFilterOptions(){
-      const t=document.getElementById("filterGame");const a=t.value;const e=["All"];
-      scripts.forEach(s=>{if(s.game&&!e.includes(s.game))e.push(s.game)});
-      t.innerHTML="";e.forEach(g=>{const o=document.createElement("option");o.value=g;o.innerText=g;t.appendChild(o)});
-      t.value=a;
-    }
-    function renderScripts(){
-      updateGameFilterOptions();const t=document.getElementById("scriptList");t.innerHTML="";
-      scripts.forEach(i=>{
-        let l=i.keyType==="Key Mua"&&i.keyLink?`<a href="${i.keyLink}" target="_blank" class="btn-link">🛒 Mua Key VIP</a>`:"";
-        const d=document.createElement("div");d.className="script-card";
-        d.innerHTML=`<div class="script-title">${i.name}</div><div class="badge-container"><span class="badge">🎮 ${i.game}</span></div><textarea class="code-textarea" readonly>${i.code}</textarea><div class="card-buttons"><button class="btn-copy" onclick="copyScript(${i.id},this)">📋 Sao chép</button>${l}<button class="btn-delete ${isAdmin?'admin-mode':''}" onclick="deleteItem('script',${i.id})">🗑️ Xóa</button></div>`;
-        t.appendChild(d);
-      });
-    }
-    function renderExecutors(){
-      const t=document.getElementById("executorList");t.innerHTML="";
-      executors.forEach(i=>{
-        const d=document.createElement("div");d.className="script-card";
-        d.innerHTML=`<div class="script-title">${i.name}</div><div class="card-buttons"><a href="${i.link}" target="_blank" class="btn-link">🔗 Tải/Mua</a><button class="btn-delete ${isAdmin?'admin-mode':''}" onclick="deleteItem('executor',${i.id})">🗑️ Xóa</button></div>`;
-        t.appendChild(d);
-      });
-    }
-    function handleAdminSave(){
-      if(!isAdmin)return;
-      if(currentAdminFormType==="script"){
-        const g=document.getElementById("scriptGame").value;const n=document.getElementById("scriptName").value;const cd=document.getElementById("scriptCode").value;
-        scripts.unshift({id:Date.now(),game:g,name:n,type:"Auto Farm",keyType:"Không Key",keyLink:"",note:"",code:cd});
-        localStorage.setItem("dbScripts",JSON.stringify(scripts));renderScripts();
+
+    function handleAdminSave() {
+      if (!isAdmin) return alert("Vui lòng kích hoạt Admin trước!");
+      
+      if (currentAdminFormType === 'script') {
+        let game = document.getElementById("scriptGame").value.trim();
+        let name = document.getElementById("scriptName").value.trim();
+        let code = document.getElementById("scriptCode").value.trim();
+        if (!game || !name || !code) return alert("Nhập thiếu thông tin Script!");
+        
+        scripts.push({
+          id: Date.now(), game, name, code,
+          type: document.getElementById("scriptType").value,
+          keyType: document.getElementById("scriptKeyType").value,
+          keyLink: document.getElementById("scriptKeyLink").value.trim(),
+          note: document.getElementById("scriptNote").value.trim()
+        });
+        localStorage.setItem("dbScripts", JSON.stringify(scripts));
+      } else {
+        let name = document.getElementById("exeName").value.trim();
+        let link = document.getElementById("exeLink").value.trim();
+        if (!name || !link) return alert("Nhập thiếu thông tin Executor!");
+        
+        executors.push({
+          id: Date.now(), name, link,
+          platform: document.getElementById("exePlatform").value,
+          priceType: document.getElementById("exePriceType").value,
+          note: document.getElementById("exeNote").value.trim()
+        });
+        localStorage.setItem("dbExecutors", JSON.stringify(executors));
       }
-      alert("Đã lưu!");
+      alert("Lưu thành công!"); renderScripts(); renderExecutors();
     }
-    function copyScript(id,btn){
-      const s=scripts.find(x=>x.id===id);
-      if(s&&s.code){navigator.clipboard.writeText(s.code).then(()=>{alert("Đã copy!");});}
+
+    function deleteItem(type, id) {
+      if (!confirm("Xóa mục này?")) return;
+      if (type === 'script') {
+        scripts = scripts.filter(s => s.id !== id); localStorage.setItem("dbScripts", JSON.stringify(scripts)); renderScripts();
+      } else {
+        executors = executors.filter(e => e.id !== id); localStorage.setItem("dbExecutors", JSON.stringify(executors)); renderExecutors();
+      }
     }
-    renderScripts();
+
+    function copyToClipboard(txt) {
+      navigator.clipboard.writeText(txt).then(() => alert("Đã copy script thành công!"));
+    }
+
+    function renderScripts() {
+      let search = document.getElementById("searchScript").value.toLowerCase();
+      let filter = document.getElementById("filterGame");
+      let games = ["All", ...new Set(scripts.map(s => s.game))];
+      filter.innerHTML = games.map(g => `<option value="${g}">${g==='All'?'Tất cả Game':g}</option>`).join('');
+
+      let filtered = scripts.filter(s => (filter.value === "All" || s.game === filter.value) && (s.name.toLowerCase().includes(search) || s.game.toLowerCase().includes(search)));
+      document.getElementById("scriptList").innerHTML = filtered.map(s => `
+        <div class="script-card">
+          <div class="script-title">[${s.game}] ${s.name}</div>
+          <div class="badge-container"><span class="badge">${s.type}</span><span class="badge">${s.keyType}</span></div>
+          <textarea class="code-textarea" readonly>${s.code}</textarea>
+          <div class="card-buttons">
+            <button class="btn-copy" onclick="copyToClipboard(\`${s.code}\`)">📋 Copy Script</button>
+            <button class="btn-delete ${isAdmin?'admin-mode':''}" onclick="deleteItem('script', ${s.id})">❌ Xóa</button>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function renderExecutors() {
+      document.getElementById("executorList").innerHTML = executors.map(e => `
+        <div class="script-card">
+          <div class="script-title">⚙️ ${e.name}</div>
+          <div class="badge-container"><span class="badge">${e.platform}</span><span class="badge">${e.priceType}</span></div>
+          <div class="card-buttons">
+            <a href="${e.link}" target="_blank" class="btn-link">📥 Tải Executor</a>
+            <button class="btn-delete ${isAdmin?'admin-mode':''}" onclick="deleteItem('executor', ${e.id})">❌ Xóa</button>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    window.onload = function() { renderScripts(); renderExecutors(); };
   </script>
 </body>
 </html>
