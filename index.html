@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Script Hub</title>
+<style>
+:root {
+  --bg: #0f111a; --card: #1a1d2e;
+  --accent: #ff4757; --text: #ffffff;
+  --muted: #a0a5c1; --success: #2ed573;
+}
+body {
+  font-family: sans-serif; background: var(--bg);
+  color: var(--text); padding: 15px; margin: 0;
+}
+.container { max-width: 800px; margin: 0 auto; }
+header { text-align: center; margin-bottom: 20px; }
+header h1 { color: var(--accent); cursor: pointer; }
+.script-form {
+  display: none; background: var(--card); padding: 15px;
+  border-radius: 8px; margin-bottom: 20px;
+  border: 2px dashed var(--accent);
+}
+.script-form.active { display: block; }
+.form-group { margin-bottom: 12px; }
+.form-group label { display: block; margin-bottom: 5px; color: var(--muted); }
+.form-group input, .form-group select, .form-group textarea {
+  width: 100%; padding: 8px; background: #0f111a;
+  border: 1px solid #2a2f4c; border-radius: 4px; color: #fff;
+  box-sizing: border-box;
+}
+.btn-submit {
+  background: var(--success); color: #fff; border: none;
+  padding: 10px; border-radius: 4px; cursor: pointer; width: 100%;
+}
+.controls { display: flex; gap: 10px; margin-bottom: 20px; }
+.search-bar { flex: 2; padding: 10px; background: var(--card); border: 1px solid #2a2f4c; color: #fff; border-radius: 6px; }
+.filter-select { flex: 1; padding: 10px; background: var(--card); border: 1px solid #2a2f4c; color: #fff; border-radius: 6px; }
+.script-card {
+  background: var(--card); border-radius: 8px; padding: 15px;
+  margin-bottom: 15px; border: 1px solid #2a2f4c;
+}
+.script-card h3 { margin: 0 0 10px 0; display: flex; justify-content: space-between; }
+.badge { background: #2a2f4c; color: var(--accent); padding: 2px 6px; border-radius: 4px; font-size: 0.8rem; }
+.code-box {
+  background: #0f111a; padding: 10px; border-radius: 4px;
+  color: #57f287; font-family: monospace; margin-bottom: 10px;
+  white-space: pre-wrap; word-break: break-all;
+}
+.btn-copy {
+  background: #2a2f4c; color: #fff; border: none;
+  padding: 8px 12px; border-radius: 4px; cursor: pointer; width: 100%;
+}
+.btn-delete {
+  display: none; background: #3d1e22; color: #ff4757;
+  border: none; padding: 8px; border-radius: 4px; margin-top: 5px; cursor: pointer;
+}
+.btn-delete.admin-mode { display: block; }
+</style>
+</head>
+<body>
+<div class="container">
+  <header>
+    <h1 ondblclick="checkAdmin()">Blox Fruits Script Hub</h1>
+    <p>Double-click vào tên tiêu đề để nhập mật khẩu Admin</p>
+  </header>
+
+  <div id="adminForm" class="script-form">
+    <h3>🛠️ THÊM SCRIPT MỚI</h3>
+    <div class="form-group">
+      <label>Tên Script</label>
+      <input type="text" id="scriptName">
+    </div>
+    <div class="form-group">
+      <label>Thể loại</label>
+      <select id="scriptType">
+        <option value="Auto Farm">Auto Farm Level</option>
+        <option value="Săn Trái Ác Quỷ">Săn Trái Ác Quỷ</option>
+        <option value="Raid / Dungeon">Raid / Dungeon</option>
+        <option value="PVP / Bounty">PVP / Săn Bounty</option>
+        <option value="Fix Lag / Khác">Fix Lag / Khác</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label>Ghi chú</label>
+      <input type="text" id="scriptNote">
+    </div>
+    <div class="form-group">
+      <label>Mã Lệnh Script (Mã Lua)</label>
+      <textarea id="scriptCode" rows="3"></textarea>
+    </div>
+    <button class="btn-submit" onclick="addScript()">Xác Nhận Lưu</button>
+  </div>
+
+  <div class="controls">
+    <input type="text" id="searchInput" class="search-bar" placeholder="🔍 Tìm kiếm..." oninput="render()">
+    <select id="filterType" class="filter-select" onchange="render()">
+      <option value="All">Tất cả</option>
+      <option value="Auto Farm">Auto Farm</option>
+      <option value="Săn Trái Ác Quỷ">Săn Trái Ác Quỷ</option>
+      <option value="Raid / Dungeon">Raid / Dungeon</option>
+      <option value="PVP / Bounty">PVP / Săn Bounty</option>
+      <option value="Fix Lag / Khác">Fix Lag / Khác</option>
+    </select>
+  </div>
+  <div id="scriptList"></div>
+</div>
+
+<script>
+const PASS = "h55032629@gmai.com";
+let isAdmin = false;
+const defaults = [
+  { id: 1, name: "W-Azure Hub (Mẫu)", type: "Auto Farm", note: "Không key", code: "loadstring(game:HttpGet('https://luarmor.net'))()" },
+  { id: 2, name: "Hoho Hub (Mẫu)", type: "Săn Trái Ác Quỷ", note: "Tự nhặt trái", code: "loadstring(game:HttpGet('https://githubusercontent.com'))()" }
+];
+let scripts = JSON.parse(localStorage.getItem('myScripts')) || defaults;
+
+function checkAdmin() {
+  const p = prompt("Nhập mật khẩu Admin:");
+  if (p === PASS) {
+    isAdmin = true;
+    document.getElementById('adminForm').classList.add('active');
+    render();
+    alert("Đăng nhập thành công!");
+  } else if (p !== null) { alert("Sai mật khẩu!"); }
+}
+
+function render() {
+  const list = document.getElementById('scriptList');
+  const search = document.getElementById('searchInput').value.toLowerCase();
+  const filter = document.getElementById('filterType').value;
+  list.innerHTML = '';
+  
+  const filtered = scripts.filter(item => {
+    const mSearch = item.name.toLowerCase().includes(search) || item.note.toLowerCase().includes(search);
+    const mFilter = filter === 'All' || item.type === filter;
+    return mSearch && mFilter;
+  });
+
+  if(filtered.length === 0) {
+    list.innerHTML = '<p style="text-align:center;color:var(--muted);">Không có dữ liệu</p>';
+    return;
+  }
+
+  filtered.forEach(item => {
+    const card = document.createElement('div');
+    card.className = 'script-card';
+    card.innerHTML = `
+      <h3>${item.name} <span class="badge">${item.type}</span></h3>
+      <div style="font-size:0.9rem;color:var(--muted);margin-bottom:10px;">📌 ${item.note || 'Không có'}</div>
+      <div class="code-box" id="code-${item.id}">${item.code}</div>
+      <button class="btn-copy" onclick="copy(${item.id}, this)">📋 Sao chép Script</button>
+      <button class="btn-delete ${isAdmin ? 'admin-mode' : ''}" onclick="del(${item.id})">Xóa</button>
+    `;
+    list.appendChild(card);
+  });
+}
+
+function addScript() {
+  if(!isAdmin) return;
+  const name = document.getElementById('scriptName').value.trim();
+  const type = document.getElementById('scriptType').value;
+  const note = document.getElementById('scriptNote').value.trim();
+  const code = document.getElementById('scriptCode').value.trim();
+  if (!name || !code) { alert('Vui lòng điền đủ tên và mã!'); return; }
+  scripts.unshift({ id: Date.now(), name, type, note, code });
+  localStorage.setItem('myScripts', JSON.stringify(scripts));
+  document.getElementById('scriptName').value = '';
+  document.getElementById('scriptNote').value = '';
+  document.getElementById('scriptCode').value = '';
+  render();
+  alert('Đã thêm!');
+}
+
+function copy(id, btn) {
+  const txt = document.getElementById(`code-${id}`).innerText;
+  navigator.clipboard.writeText(txt).then(() => {
+    btn.innerText = "✓ Đã sao chép!";
+    setTimeout(() => { btn.innerText = "📋 Sao chép Script"; }, 2000);
+  });
+}
+
+function del(id) {
+  if(!isAdmin) return;
+  if(confirm('Bạn muốn xóa?')) {
+    scripts = scripts.filter(item => item.id !== id);
+    localStorage.setItem('myScripts', JSON.stringify(scripts));
+    render();
+  }
+}
+render();
+</script>
+</body>
+</html>
